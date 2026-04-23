@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>МАССАЖ</title>
+  <!-- Google Fonts & Simple CSS Reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fefcf8;
+      color: #2c2418;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: #c7a17a;
+      margin: 0.8rem auto 0;
+      border-radius: 4px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #c7a17a;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: 0.25s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .btn:hover {
+      background: #b48b5f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(199, 161, 122, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #c7a17a;
+      color: #c7a17a;
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      background: #c7a17a;
+      color: white;
+    }
+
+    /* Header / Nav */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px 0;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #9b6a3c, #dbb47a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #3e2c1c;
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: #c7a17a;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 40px 0 60px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+    .hero-content {
+      flex: 1.2;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #f0e3d4;
+      color: #9b6a3c;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #5a4a34;
+      margin: 1.5rem 0;
+      max-width: 90%;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .stat-item {
+      font-weight: 700;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #c7a17a;
+    }
+    .hero-image {
+      flex: 1;
+      background: linear-gradient(145deg, #e8d9cc, #fcf5ed);
+      border-radius: 48px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+    }
+    .hero-image svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+    }
+
+    /* Features / Преимущества */
+    .features {
+      background: #fffaf5;
+      padding: 70px 0;
+      border-radius: 60px 60px 0 0;
+      margin-top: 20px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .feature-card {
+      text-align: center;
+      padding: 24px 16px;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+      transition: 0.2s;
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Services (услуги) */
+    .services {
+      padding: 70px 0;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: white;
+      border-radius: 36px;
+      padding: 1.8rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #f3ede5;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.08);
+    }
+    .service-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .service-desc {
+      color: #6f5a40;
+      margin: 0.8rem 0 1.2rem;
+      line-height: 1.4;
+    }
+    .price {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #c7a17a;
+      margin: 0.8rem 0;
+    }
+    .price small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #9b8a74;
+    }
+    .service-btn {
+      margin-top: 1rem;
+      width: 100%;
+      background: #f5ede4;
+      color: #5c3f1f;
+      box-shadow: none;
+    }
+    .service-btn:hover {
+      background: #c7a17a;
+      color: white;
+    }
+
+    /* Why us */
+    .why-us {
+      background: #f6efe8;
+      padding: 70px 0;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+    }
+    .why-text {
+      flex: 1;
+    }
+    .why-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+    .why-list li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+    .check {
+      background: #c7a17a;
+      color: white;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 14px;
+    }
+
+    /* Form section */
+    .booking {
+      padding: 70px 0;
+    }
+    .form-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 48px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      border: 1px solid #ece2d7;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 32px;
+      border: 1px solid #e2d5c8;
+      font-size: 1rem;
+      background: #fefcf9;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #c7a17a;
+      box-shadow: 0 0 0 3px rgba(199,161,122,0.2);
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-submit {
+      width: 100%;
+      background: #c7a17a;
+      font-size: 1.1rem;
+      padding: 16px;
+    }
+    .success-msg {
+      background: #e0f2e9;
+      color: #2c6e49;
+      padding: 12px;
+      border-radius: 60px;
+      text-align: center;
+      margin-top: 16px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background: #2c2418;
+      color: #ddd2c4;
+      padding: 40px 0 30px;
+      text-align: center;
+      border-radius: 40px 40px 0 0;
+    }
+    .footer-contact {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .footer-contact a {
+      color: #e9cfb0;
+      text-decoration: none;
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .nav-links {
+        gap: 1.2rem;
+      }
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      .hero-desc {
+        max-width: 100%;
+      }
+      .hero-stats {
+        justify-content: center;
+      }
+      .form-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">✨ ОЛЬГА.МАССАЖ</div>
+      <ul class="nav-links">
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#why">О нас</a></li>
+        <li><a href="#booking">Запись</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero секция -->
+  <div class="container">
+    <div class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">🏆 Лучший массаж 2026 — Выбор клиентов</span>
+        <h1>Восстанови энергию <br> и сними стресс</h1>
+        <p class="hero-desc">Профессиональный массаж на выезд или в студии. Расслабление, здоровье спины, антицеллюлитные техники — полный релакс и результат с первой процедуры.</p>
+        <a href="#booking" class="btn">📅 Записаться сейчас →</a>
+        <div class="hero-stats">
+          <div class="stat-item"><span class="stat-number">500+</span><br>довольных клиентов</div>
+          <div class="stat-item"><span class="stat-number">7 лет</span><br>опыта</div>
+          <div class="stat-item"><span class="stat-number">4.98 ★</span><br>средний рейтинг</div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <svg viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M80,80 L200,80 L210,160 L70,160 Z" fill="#E7D5C0" stroke="#C7A17A" stroke-width="2"/>
+          <circle cx="100" cy="110" r="14" fill="#D9C2A8"/>
+          <circle cx="180" cy="110" r="14" fill="#D9C2A8"/>
+          <path d="M120 140 L160 140" stroke="#9B6A3C" stroke-width="3" stroke-linecap="round"/>
+          <path d="M140 80 L140 40 L160 40 L160 80" fill="#C7A17A" opacity="0.3"/>
+          <rect x="50" y="160" width="180" height="20" rx="10" fill="#BFA78C"/>
+          <text x="70" y="178" fill="white" font-size="12" font-weight="bold">Массаж для Вас</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Преимущества -->
+  <div class="features">
+    <div class="container">
+      <div class="section-title"><h2>Почему выбирают нас</h2></div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🏅</div><h3>Сертифицированный мастер</h3><p>Высшее медицинское образование </p></div>
+        <div class="feature-card"><div class="feature-icon">🌿</div><h3>Натуральные масла</h3><p>Только гипоаллергенные, органические средства</p></div>
+        <div class="feature-card"><div class="feature-icon">⏱️</div><h3>Выезд за 30 минут</h3><p>Оперативно приедем к вам домой или в офис</p></div>
+        <div class="feature-card"><div class="feature-icon">🎁</div><h3>Подарочные сертификаты</h3><p>Идеальный подарок для близких</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Услуги / прайс -->
+  <div class="services" id="services">
+    <div class="container">
+      <div class="section-title"><h2>Наши массажные программы</h2></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-title">Классический массаж</div>
+          <div class="service-desc">Глубокое расслабление мышц, снятие напряжения. Идеально после рабочей недели.</div>
+          <div class="price">от 2000₽ <small>/ 60 мин</small></div>
+          <button class="btn service-btn" data-service="Классический массаж">Выбрать программу</button>
+        </div>
+        <div class="service-card">
+          <div class="service-title">Массаж лица</div>
+          <div class="service-desc">Восстановление после тренировок, подготовка к соревнованиям, снятие зажимов.</div>
+          <div class="price">от 1000₽ <small>/ 30 мин</small></div>
+          <button class="btn service-btn" data-service="Массаж лица">Выбрать программу</button>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why us + отзыв -->
+  <div class="why-us" id="why">
+    <div class="container">
+      <div class="row">
+        <div class="why-text">
+          <h2>Профессионализм и забота</h2>
+          <p>Наши мастера проходят строгий отбор и повышают квалификацию каждый год. Используем только безопасные техники, индивидуальный подход к каждому гостю.</p>
+          <ul class="why-list">
+            <li><span class="check">✓</span> Бесплатная консультация перед сеансом</li>
+            
+            <li><span class="check">✓</span> Гибкий график: работаем с 9:00 до 18:00 Воскресение выходной</li>
+            
+          </ul>
+        </div>
+        <div style="flex:1; background: #faf2e9; border-radius: 36px; padding: 28px;">
+          <div style="font-size: 3rem;">💬</div>
+          <p style="font-style: italic; margin: 1rem 0;">«После курса массажа у меня прошла боль в спине, улучшился сон. Мастер очень внимательный и приятный. Рекомендую всем!»</p>
+          <div><strong>— Иван</strong> <span style="color:#c7a17a;">★★★★★</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Форма бронирования / заказ массажа -->
+  <div class="booking" id="booking">
+  <div class="container">
+    <div class="section-title"><h2>Запишитесь на массаж</h2></div>
+    <div class="form-card">
+      <!-- НОВЫЙ АДАПТИВНЫЙ iframe С GOOGLE ФОРМОЙ -->
+      <div style="position: relative; overflow: hidden; width: 100%; padding-top: 75%;">
+        <iframe 
+          src="https://forms.gle/2v5Y3icQH4cWnZ2C8" 
+          style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none;"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          scrolling="auto">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>" marginheight="0" marginwidth="0">Загрузка…</iframe>
+
+<footer id="contact">
+  <div class="container">
+    <div class="logo" style="color:#ddcca8;">✨ ОЛЬГА.МАССАЖ</div>
+    <div class="footer-contact">
+      <a href="tel:+79102254201">📞 +7 (910) 225-42-01</a>
+      <a href="mailto:Olyanyashka@gmail.com">✉️ Olyanyashka@gmail.com</a>
+      <span>📍 Валуйки, ул.Тимирязева 24 + выезд по городу</span>
+    </div>
+    <p style="font-size: 0.8rem; margin-top: 20px;">© 2026 Все права защищены. Массаж на заказ с заботой о вас.</p>
+  </div>
+</footer>
+
+<script>
+  // Автоматическое заполнение даты и времени сегодняшний день +1 час (минимальное)
+  const datetimeInput = document.getElementById('datetime');
+  if(datetimeInput) {
+    const now = new Date();
+    now.setHours(now.getHours() + 2);
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    datetimeInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+    datetimeInput.min = `${year}-${month}-${day}T00:00`;
+  }
+
+  // Обработка кнопок в карточках услуг: подстановка в форму
+  const serviceBtns = document.querySelectorAll('.service-btn');
+  const serviceSelect = document.getElementById('serviceSelect');
+  serviceBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const serviceName = btn.getAttribute('data-service');
+      if(serviceSelect && serviceName) {
+        // Ищем опцию, которая начинается с названия
+        for(let i = 0; i < serviceSelect.options.length; i++) {
+          if(serviceSelect.options[i].value === serviceName) {
+            serviceSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      // Плавный скролл к форме
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  // Обработка отправки формы
+  const form = document.getElementById('massageForm');
+  const msgDiv = document.getElementById('formMessage');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = serviceSelect.options[serviceSelect.selectedIndex]?.value || 'Не выбрано';
+    const datetime = document.getElementById('datetime').value;
+    const comment = document.getElementById('comment').value;
+
+    if(!name || !phone) {
+      msgDiv.innerHTML = '<div class="success-msg" style="background:#ffe3cf; color:#b13e2d;">❌ Пожалуйста, укажите имя и телефон!</div>';
+      return;
+    }
+    if(!datetime) {
+      msgDiv.innerHTML = '<div class="success-msg" style="background:#ffe3cf; color:#b13e2d;">❌ Выберите дату и время сеанса</div>';
+      return;
+    }
+
+    // Здесь имитация отправки на сервер (можно заменить на реальный fetch)
+    // Для демонстрации просто показываем сообщение об успехе
+    const formData = {
+      name, phone, service, datetime, comment
+    };
+    console.log('Заказ массажа:', formData);
+
+    // Эмуляция успешного запроса (задержка 0.6с)
+    msgDiv.innerHTML = '<div class="success-msg">⏳ Отправка заявки...</div>';
+    setTimeout(() => {
+      msgDiv.innerHTML = `<div class="success-msg">✅ Спасибо, ${name}! Мы свяжемся с вами в ближайшее время для подтверждения записи на ${service}. <br> 🧘‍♀️ Ждите звонка или сообщения.</div>`;
+      form.reset();
+      // сбросить дату на актуальную (опционально)
+      if(datetimeInput) {
+        const newDate = new Date();
+        newDate.setHours(newDate.getHours() + 2);
+        const y = newDate.getFullYear();
+        const m = String(newDate.getMonth() + 1).padStart(2,'0');
+        const d = String(newDate.getDate()).padStart(2,'0');
+        const h = String(newDate.getHours()).padStart(2,'0');
+        const min = String(newDate.getMinutes()).padStart(2,'0');
+        datetimeInput.value = `${y}-${m}-${d}T${h}:${min}`;
+      }
+      document.getElementById('name').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('comment').value = '';
+      // сбросить селект на первый
+      serviceSelect.selectedIndex = 0;
+    }, 600);
+  });
+</script>
+</body>
+</html>
